@@ -1,9 +1,3 @@
-local mason_lspconfig_ok, mason_lspconfig = pcall(require, "mason-lspconfig")
-if not mason_lspconfig_ok then
-  vim.notify("Plugin 'mason-lspconfig' not found!", vim.log.levels.ERROR)
-  return
-end
-
 local lspconfig_ok, lspconfig = pcall(require, "lspconfig")
 if not lspconfig_ok then
   vim.notify("Plugin 'lspconfig' not found!", vim.log.levels.ERROR)
@@ -11,10 +5,6 @@ if not lspconfig_ok then
 end
 
 local servers = { "gopls", "pyright", "lua_ls", "bashls", "vtsls" }
-
-mason_lspconfig.setup({
-  ensure_installed = servers,
-})
 
 local handlers = require("keiqu.lsp.handlers")
 handlers.setup()
