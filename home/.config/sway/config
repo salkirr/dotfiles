@@ -98,6 +98,12 @@
     bindsym XF86AudioLowerVolume exec $lower_volume
     bindsym XF86AudioMute exec $mute
 #
+### Control player
+#
+    bindsym XF86AudioPlay exec playerctl play-pause
+    bindsym XF86AudioNext exec playerctl next
+    bindsym XF86AudioPrev exec playerctl previous
+#
 ### Key bindings
 #
 # Basics:
