@@ -64,8 +64,8 @@
     set $lock swaylock -f -k --color 000000 --indicator-idle-visible
 
     exec swayidle -w \
-        timeout 600 "test (playerctl status) = 'Playing' && $lock" \
-        timeout 1200 'test (playerctl status) = "Playing" && swaymsg "output * power off"' \
+        timeout 600 "test (playerctl status) != 'Playing' && $lock" \
+        timeout 1200 'test (playerctl status) != "Playing" && swaymsg "output * power off"' \
             resume 'swaymsg "output * power on"'
 
     bindsym --to-code Ctrl+Alt+l exec $lock
