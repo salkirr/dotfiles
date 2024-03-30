@@ -22,6 +22,8 @@
 #
 ### Autostart
 #
+    exec /usr/bin/lxqt-policykit-agent
+
     exec mako
     exec udiskie --tray
     exec nm-applet
