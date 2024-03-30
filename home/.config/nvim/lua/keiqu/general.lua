@@ -62,7 +62,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- our leader
-nmap("<leader>/", ":w<cr>")
+nmap("<leader>w", ":w<cr>")
 
 -- useful
 nmap("<leader><leader>x", ":source %<cr>")
@@ -80,7 +80,7 @@ nmap("<C-k>", "<C-w>k")
 nmap("<C-l>", "<C-w>l")
 
 -- remove search highlight
-nmap("<C-n>", "<cmd>noh<cr><esc>")
+nmap("<leader>/", "<cmd>noh<cr><esc>")
 
 -- resize windows
 nmap("<C-Up>", ":resize -2<cr>")
