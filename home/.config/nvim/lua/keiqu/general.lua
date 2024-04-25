@@ -35,7 +35,8 @@ local options = {
   sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions",
   autowriteall = true,
   laststatus = 3,
-  textwidth = 120, -- for 'gq'
+  textwidth = 120, -- for 'gq',
+  shell = "/bin/bash", -- TODO: for some reason fish shell throws error (smth like `/dev/tty not found`)
 }
 
 for k, v in pairs(options) do
@@ -55,7 +56,6 @@ local nmap = require("keiqu.keymaps").nmap
 local imap = require("keiqu.keymaps").imap
 local vmap = require("keiqu.keymaps").vmap
 local xmap = require("keiqu.keymaps").xmap
-local tmap = require("keiqu.keymaps").tmap
 local nvmap = require("keiqu.keymaps").nvmap
 
 vim.g.mapleader = " "
@@ -83,20 +83,10 @@ nmap("<C-l>", "<C-w>l")
 nmap("<leader>/", "<cmd>noh<cr><esc>")
 
 -- resize windows
-nmap("<C-Up>", ":resize -2<cr>")
-nmap("<C-Down>", ":resize +2<cr>")
-nmap("<C-Left>", ":vertical resize -2<cr>")
-nmap("<C-Right>", ":vertical resize +2<cr>")
-
--- move lines
-nmap("<A-j>", ":m .+1<cr>==")
-nmap("<A-k>", ":m .-2<cr>==")
-imap("<A-j>", "<esc><cmd>m .+1<cr>==gi")
-imap("<A-k>", "<esc><cmd>m .-2<cr>==gi")
-vmap("<A-j>", ":m '>+1<cr>gv=gv")
-vmap("<A-k>", ":m '<-2<cr>gv=gv")
-xmap("<A-k>", ":m '<-2<cr>gv-gv")
-xmap("<A-j>", ":m '>+1<cr>gv-gv")
+nmap("<A-k>", ":resize -2<cr>")
+nmap("<A-j>", ":resize +2<cr>")
+nmap("<A-h>", ":vertical resize -2<cr>")
+nmap("<A-l>", ":vertical resize +2<cr>")
 
 -- buffers
 nmap("<leader>bd", ":bdelete<cr>")
@@ -130,7 +120,3 @@ nmap("<leader>e", ":NvimTreeFindFile<cr>")
 
 -- don't loose contents of register after pasting in visual mode (substitution)
 vmap("p", '"_dP')
-
--- terminal
-tmap("<A-q>", "<C-\\><C-n>")
-tmap("<expr>", "<C-R> '<C-\\><C-N>\"'.nr2char(getchar()).'pi'") -- allows to use convenient shortcuts for insert from registers (e.g. <C-R>"* )

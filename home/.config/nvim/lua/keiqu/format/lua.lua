@@ -7,6 +7,6 @@ vim.api.nvim_create_autocmd("BufWritePost", {
       return
     end
 
-    vim.fn.execute("!stylua %")
+    ok, res = vim.fn.execute("!stylua %")
   end,
 })

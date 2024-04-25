@@ -30,7 +30,7 @@
     exec blueman-applet
     exec pasystray
 
-    # exec_always python /usr/share/sway-contrib/inactive-windows-transparency.py
+    exec 'tmux new-session -d -s temp_ressurect; sleep 5; tmux kill-session -t temp_ressurect'
 #
 ### Tools
 #
@@ -61,12 +61,13 @@
 #
 ### Idle configuration
 #
-    set $lock swaylock -f -k --color 000000 --indicator-idle-visible
+    set $lock "swaylock -f -k --color 000000 --indicator-idle-visible"
 
-    exec swayidle -w \
-        timeout 600 "test (playerctl status) != 'Playing' && $lock" \
-        timeout 1200 'test (playerctl status) != "Playing" && swaymsg "output * power off"' \
-            resume 'swaymsg "output * power on"'
+    # stupidly hard command to lock screen only if no audio is playing (paused or there is no players)
+    exec_always swayidle -w \
+        timeout 600 'if playerctl status &>/dev/null; then [[ "$(playerctl status 2>/dev/null)" != "Playing" ]] && '$lock'; else '$lock'; fi' \
+        timeout 1200 'if playerctl status &>/dev/null; then [[ "$(playerctl status 2>/dev/null)" != "Playing" ]] && swaymsg "output * DPMS off"; else swaymsg "output * DPMS off"; fi' \
+            resume 'swaymsg "output * DPMS on"'
 
     bindsym --to-code Ctrl+Alt+l exec $lock
 #
@@ -84,6 +85,12 @@
     input "type:pointer" {
         accel_profile flat
     }
+#
+### Audio
+#
+    # Virtual speacker and mic for applying preprocessing
+    exec pactl load-module module-null-sink sink_name=Virtual-Speaker sink_properties=device.description=Virtual-Speaker
+    exec pactl load-module module-remap-source source_name=Remap-Source master=Virtual-Speaker.monitor
 #
 ### Control volume
 #

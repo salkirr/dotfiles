@@ -1,7 +1,11 @@
 require("keiqu.general")
 require("keiqu.globals")
-require("keiqu.trim")
-require("keiqu.lua")
+
+-- Format
+require("keiqu.format.lua")
+require("keiqu.format.trim")
+-- require("keiqu.format.json")
+require("keiqu.format.go")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
